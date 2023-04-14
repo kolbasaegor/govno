@@ -7,7 +7,7 @@
     нормальын ребята:
     <ul>
         {#each guys as g}
-            <li>{g.name}</li>
+            <li><a href="/music/{g.id}">{g.name}</a></li>
         {/each}
     </ul>
 </div>
