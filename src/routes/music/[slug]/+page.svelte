@@ -10,7 +10,15 @@
     <p>Profile pic:
       <img src={data.response.imgUrl.publicUrl} alt="">
     </p>
+    <p>Audio: <audio controls src={data.response.audioUrl.publicUrl}></audio></p>
   {:else}
     <p>такоего нет сории</p>
   {/if}
 </div>
+
+<style>
+  img {
+    height: 400px;
+    width: 400px;
+  }
+</style>

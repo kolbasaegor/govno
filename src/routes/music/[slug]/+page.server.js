@@ -1,4 +1,5 @@
 import { supabase } from "$lib/supabase";
+import { error } from "@sveltejs/kit";
  
 export async function load({ params }) {
   var id = Number(params.slug);
@@ -9,6 +10,7 @@ export async function load({ params }) {
       response: {
         person: data[0],
         imgUrl: (await getImgUrl(id)).publicUrl,
+        audioUrl: (await getAudioUrl(id)).publicUrl,
       }
     }
   } else {
@@ -25,12 +27,27 @@ async function getImgUrl(id) {
   const { data } = supabase
   .storage
   .from('media')
-  .getPublicUrl(`images/${id}.jpg`)
+  .getPublicUrl(`images/profile_pics/${id}.jpg`);
 
-  console.log(data)
+  //console.log(data);
 
   return {
     publicUrl: data,
   }
+}
 
+/**
+ * @param {number} id
+ */
+async function getAudioUrl(id) {
+  const { data } = supabase
+  .storage
+  .from('media')
+  .getPublicUrl(`audio/${id}.mp3`);
+
+  console.log(data);
+
+  return {
+    publicUrl: data,
+  }
 }
