@@ -8,7 +8,7 @@ export async function load() {
 
   // @ts-ignore
   for (const t of tracks) {
-    let { data } = await supabase.from('user').select('id, login').eq('id', t.uploaded_by_id);
+    let { data } = await supabase.from('user').select('id, username').eq('id', t.uploaded_by_id);
     // @ts-ignore
     let userInfo = data[0];
 
@@ -19,7 +19,7 @@ export async function load() {
       userInfo: userInfo,
     });
   }
-
+  console.log(response);
   return {
     response: response,
   }

@@ -10,7 +10,7 @@
             Track Id: {t.meta.id} <br>
             Track name: {t.meta.name} <br>
             Author: {t.meta.author} <br>
-            Uploaded by: {t.userInfo.login} <br>
+            Uploaded by: {t.userInfo.username} <br>
             Uploaded at: {t.meta.uploaded_at} <br>
             Cover: <img src={t.imgUrl} alt=""> <br>
             Listen -> <audio controls src={t.audioUrl}></audio>
