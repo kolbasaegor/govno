@@ -1,24 +1,22 @@
 <div>
     <p>Here you can upload music</p>
     <form method="POST" enctype="multipart/form-data">
-        <p>
-            <label>
-                Name
-                <input name="name" type="text">
-            </label>
-        </p>
-        <p>
-            <label>
-                profile pic
-                <input name="profile-pic" type="file" accept=".jpg">
-            </label>
-        </p>
-        <p>
-            <label>
-                audio file
-                <input name="audio" type="file" accept=".mp3">
-            </label>
-        </p>
+        <p><label>
+            Name of the song:
+            <input type="text" name="track_name" required>
+        </label></p>
+        <p><label>
+            Author of the song:
+            <input type="text" name="author" required>
+        </label></p>
+        <p><label>
+            Track cover (optional):
+            <input type="file" name="track_cover" accept=".jpg" required>
+        </label></p>
+        <p><label>
+            Audio file:
+            <input type="file" name="audio" accept=".mp3" required>
+        </label></p>
         <button type="submit">Upload</button>
     </form>
 
