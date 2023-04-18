@@ -19,7 +19,7 @@ export async function load() {
       userInfo: userInfo,
     });
   }
-  console.log(response);
+
   return {
     response: response,
   }

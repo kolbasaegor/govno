@@ -7,10 +7,10 @@
     <h1>Register</h1>
     <form method="POST">
         {#if form?.incorrect}<p>You're already registered!
-            please <a href="/signin">sign in</a>
+            please <a href="/login">login</a>
         </p>{/if}
         {#if form?.success}<p>You're зарегистрирован братанчик красавчик!
-            please <a href="/signin">sign in</a>
+            please <a href="/login">login</a>
         </p>{/if}
 
         <p><label>
