@@ -1,6 +1,7 @@
 import { redirect } from '@sveltejs/kit';
+import { getUserById } from '$lib/api/db'
 
-/** @type {import('./$types').LayoutServerLoad} */
+
 export async function load({ cookies }) {    
     const userId = cookies.get('session_id');
     
@@ -9,8 +10,6 @@ export async function load({ cookies }) {
     }
 
     return {
-        user: {
-            id: userId
-        }
+        user: await getUserById(userId)
     };
 }

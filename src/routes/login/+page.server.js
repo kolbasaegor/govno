@@ -1,5 +1,4 @@
-// @ts-nocheck
-import { supabase } from "$lib/supabase";
+import { userExistInDb, getUserByUsername } from "$lib/api/db";
 import { fail } from '@sveltejs/kit';
 
 /** @type {import('./$types').Actions} */
@@ -9,17 +8,17 @@ export const actions = {
         const login = _data.get('login') ?? "";
         const password = _data.get('password');
         
-        if (!await existInDb(login, password)) {
+        if (!await userExistInDb(login, password)) {
             return fail(400, { login, incorrect: true });
         }
         
-        let user = await getUserByUsername(login);
+        const user = await getUserByUsername(login);
 
+        // @ts-ignore
         cookies.set('session_id', user.id, {
             path: '/',
             httpOnly: true,
             sameSite: 'strict',
-            maxAge: 60 * 60 * 24 * 30
         });
 
         return {
@@ -28,27 +27,3 @@ export const actions = {
         };
     }
 };
-
-/**
- * @param {any} login
- * @param {any} password
- */
-async function existInDb(login, password) {
-    const { data } = await supabase.from('user').select()
-    .eq('username', login)
-    .eq('password', password);
-
-    if (data?.length == 1) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-async function getUserByUsername(username) {
-    const { data } = await supabase.from('user').select()
-    .eq('username', username)
-
-    return data[0];
-}

@@ -1,8 +1,9 @@
-import { supabase } from "$lib/supabase";
+import {addTrackToDb, uploadImage, uploadAudio} from '$lib/api/db';
 
 /** @type {import('./$types').Actions} */
 export const actions = {
-    default: async ({ request }) => {
+    default: async ({ request, cookies }) => {
+        const userId = cookies.get('session_id');
         const _data = await request.formData();
         const track_name = _data.get('track_name');
         const author = _data.get('author');
@@ -14,10 +15,8 @@ export const actions = {
         const storage_img_path = 'track_pic/' + r + '.jpg';
 
         // write to table 'track'
-        const { error } = await supabase
-        .from('track')
-        .insert({
-            uploaded_by_id: 0,
+        await addTrackToDb({
+            uploaded_by_id: userId,
             name: track_name,
             author: author,
             path_to_img: storage_img_path,
@@ -25,18 +24,10 @@ export const actions = {
         });
         
         // upload track cover to bucket 'image'
-        if (track_cover) {
-            await supabase.storage
-            .from('image')
-            .upload(storage_img_path, track_cover);
-        }
+        await uploadImage(storage_img_path, track_cover);
 
         // upload audio to bucket 'audio'
-        if (audio) {
-            await supabase.storage
-            .from('audio')
-            .upload(storage_audio_path, audio);
-        }
+        await uploadAudio(storage_audio_path, audio);
 
         return { success: true };
     }
