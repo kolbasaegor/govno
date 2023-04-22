@@ -1,4 +1,5 @@
 import { userAlreadyRegistered, registerUser } from "$lib/api/db";
+import { redirect } from '@sveltejs/kit';
 import { fail } from '@sveltejs/kit';
 
 /** @type {import('./$types').Actions} */
@@ -14,6 +15,6 @@ export const actions = {
 
         await registerUser(login, password);
 
-        return { success: true };
+        throw redirect(307, '/login');
     }
 };

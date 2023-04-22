@@ -32,7 +32,21 @@ export const uploadAudio = async(path, audio) => {
 export const getAllTracks = async() => {
     const { data } = await supabase.from("track").select();
 
-    return data;
+    let response = [];
+
+    // @ts-ignore
+    for (const t of data) {
+        const userInfo = await getUserById(t.uploaded_by_id);
+
+        response.push({
+        meta: t,
+        audioUrl: await generateAudioUrl(t.path_to_audio),
+        imgUrl: await generateImgUrl(t.path_to_img),
+        userInfo: userInfo,
+        });
+    }
+
+    return response;
 }
 
 // @ts-ignore
@@ -112,4 +126,44 @@ export const getTracksUploadedById = async(id) => {
     .eq('uploaded_by_id', id);
 
     return data;
+}
+
+// @ts-ignore
+export const getTrackById = async(id) => {
+    const { data } = await supabase.from("track").select()
+    .eq('id', id);
+
+    // @ts-ignore
+    const track = data[0];
+    
+    track.imgUrl = await generateImgUrl(track.path_to_img);
+    track.audioUrl = await generateAudioUrl(track.path_to_audio);
+
+    return {
+        track: track,
+        user: await getUserById(track.uploaded_by_id),
+    }
+}
+
+// @ts-ignore
+export const removeTrack = async(id) => {
+    
+    const data = await getTrackById(id);
+
+    await supabase
+    .from('track')
+    .delete()
+    .eq('id', id);
+
+    
+    await supabase
+    .storage
+    .from('audio')
+    .remove([data.track.path_to_audio]);
+
+    await supabase
+    .storage
+    .from('image')
+    .remove([data.track.path_to_img]);
+
 }

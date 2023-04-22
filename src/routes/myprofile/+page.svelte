@@ -1,5 +1,7 @@
 <script>
     export let data;
+    import edit_icon from '$lib/components/edit_icon.svg';
+    import remove_icon from '$lib/components/remove_icon.svg';
 </script>
 
 <div>
@@ -10,13 +12,15 @@
     Track uploaded by you:
     {#each data.response as t}
         <p>
+            <a href='/music/remove/{t.meta.id}'><button><img src={remove_icon} alt=""></button></a> <br>
             Track Id: {t.meta.id} <br>
-            Track name: {t.meta.name} <br>
+            Track name: <a href="/music/{t.meta.id}">{t.meta.name}</a> <br>
             Author: {t.meta.author} <br>
             Uploaded at: {t.meta.uploaded_at} <br>
             Cover: <img src={t.imgUrl} alt=""> <br>
             Listen -> <audio controls src={t.audioUrl}></audio>
         </p>
+        
     {/each}
 </div>
 
@@ -27,7 +31,7 @@
     }
 
     img {
-        height: 200px;
-        width: 200px;
+        height: 50px;
+        width: 50px;
     }
 </style>

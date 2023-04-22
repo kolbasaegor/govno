@@ -6,9 +6,9 @@
     All tracks:
 
     {#each data.response as t}
-        <p>
+        <p> 
             Track Id: {t.meta.id} <br>
-            Track name: {t.meta.name} <br>
+            Track name: <a href="/music/{t.meta.id}">{t.meta.name}</a> <br>
             Author: {t.meta.author} <br>
             Uploaded by: {t.userInfo.username} <br>
             Uploaded at: {t.meta.uploaded_at} <br>
@@ -25,7 +25,7 @@
     }
 
     img {
-        height: 200px;
-        width: 200px;
+        height: 50px;
+        width: 50px;
     }
 </style>

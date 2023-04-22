@@ -1,5 +1,13 @@
+<script>
+    /** @type {import('./$types').ActionData} */
+    export let form;
+</script>
+
 <div>
     <p>Here you can upload music</p>
+    {#if form?.success}
+        Track has been successufully uploaded!
+    {/if}
     <form method="POST" enctype="multipart/form-data">
         <p><label>
             Name of the song:
@@ -19,5 +27,4 @@
         </label></p>
         <button type="submit">Upload</button>
     </form>
-
 </div>

@@ -1,28 +1,13 @@
-import {getAllTracks,
-        getUserById,
-        generateAudioUrl,
-        generateImgUrl
-} from "$lib/api/db";
+import {getAllTracks} from "$lib/api/db";
 
-export async function load() {
-  let tracks = await getAllTracks();
-
-  let response = [];
-
-  // @ts-ignore
-  for (const t of tracks) {
-    const userInfo = await getUserById(t.uploaded_by_id);
-
-    response.push({
-      meta: t,
-      audioUrl: await generateAudioUrl(t.path_to_audio),
-      imgUrl: await generateImgUrl(t.path_to_img),
-      userInfo: userInfo,
-    });
-  }
+export async function load({cookies}) {
+  const tracks = await getAllTracks();
+  const currentSessionUserId = cookies.get('session_id');
+  const userid = currentSessionUserId ? Number(currentSessionUserId) : -1;
 
   return {
-    response: response,
+    response: tracks,
+    user_id: userid
   }
 
 }
