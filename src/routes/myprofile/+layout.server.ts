@@ -1,5 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import { getUserById } from '$lib/api/db'
+export const prerender = true;
 
 
 export async function load({ cookies }) {    

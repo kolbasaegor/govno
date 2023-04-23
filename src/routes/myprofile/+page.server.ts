@@ -3,6 +3,7 @@ import {getTracksUploadedById,
         generateImgUrl
 } from "$lib/api/db";
 import { redirect } from '@sveltejs/kit';
+export const prerender = true;
 
 export async function load({cookies: cookies}) {
     const userId = Number(cookies.get('session_id'));
