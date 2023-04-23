@@ -1,32 +1,24 @@
 import { supabase } from '$lib/api/supabase';
 
-// @ts-ignore
-export const addTrackToDb = async(track) => {
-    const { data, error } = await supabase
+export const addTrackToDb = async(track: { uploaded_by_id: string | undefined; name: FormDataEntryValue | null; author: FormDataEntryValue | null; path_to_img: string; path_to_audio: string; }) => {
+    const { data } = await supabase
     .from('track')
     .insert(track)
     .select();
 
-    if (error) console.log(error);
-    else return data;
+    return data;
 }
 
-// @ts-ignore
-export const uploadImage = async(path, img) => {
-    const {error} = await supabase.storage
+export const uploadImage = async(path: string, img: string | Blob | ArrayBuffer | ArrayBufferView | FormData | NodeJS.ReadableStream | ReadableStream<Uint8Array>) => {
+    await supabase.storage
     .from('image')
     .upload(path, img);
-
-    if (error) console.log(error);
 }
 
-// @ts-ignore
-export const uploadAudio = async(path, audio) => {
+export const uploadAudio = async(path: string, audio: string | Blob | ArrayBuffer | ArrayBufferView | FormData | NodeJS.ReadableStream | ReadableStream<Uint8Array>) => {
     const {error} = await supabase.storage
     .from('audio')
     .upload(path, audio);
-
-    if (error) console.log(error);
 }
 
 export const getAllTracks = async() => {
@@ -34,8 +26,7 @@ export const getAllTracks = async() => {
 
     let response = [];
 
-    // @ts-ignore
-    for (const t of data) {
+    for (const t of data ?? []) {
         const userInfo = await getUserById(t.uploaded_by_id);
 
         response.push({
@@ -49,8 +40,7 @@ export const getAllTracks = async() => {
     return response;
 }
 
-// @ts-ignore
-export const getUserById = async(id) => {
+export const getUserById = async(id: Number) => {
     const { data } = await supabase
     .from('user')
     .select('id, username')
@@ -59,10 +49,7 @@ export const getUserById = async(id) => {
     return data ? data[0] : null;
 }
 
-/**
- * @param {string} path
- */
-export const generateAudioUrl = async(path) => {
+export const generateAudioUrl = async(path: string) => {
   
   const { data } = await supabase
   .storage
@@ -72,10 +59,7 @@ export const generateAudioUrl = async(path) => {
   return data.publicUrl;
 }
 
-/**
- * @param {string} path
- */
-export const generateImgUrl = async(path) => {
+export const generateImgUrl = async(path: string) => {
   
   const { data } = await supabase
   .storage
@@ -85,8 +69,7 @@ export const generateImgUrl = async(path) => {
   return data.publicUrl;
 }
 
-// @ts-ignore
-export const  userExistInDb = async(login, password) => {
+export const  userExistInDb = async(login: string, password: string) => {
     const { data } = await supabase.from('user').select()
     .eq('username', login)
     .eq('password', password);
@@ -94,24 +77,21 @@ export const  userExistInDb = async(login, password) => {
    return (data?.length === 1) ? true : false;
 }
 
-// @ts-ignore
-export const getUserByUsername = async(username) => {
+export const getUserByUsername = async(username: string) => {
     const { data } = await supabase.from('user').select('id, username')
     .eq('username', username)
 
     return data?.length === 1 ? data[0] : null;
 }
 
-// @ts-ignore
-export const  userAlreadyRegistered = async(login) => {
+export const  userAlreadyRegistered = async(login: string) => {
     const { data } = await supabase.from('user').select()
     .eq('username', login)
 
    return (data?.length === 1) ? true : false;
 }
 
-// @ts-ignore
-export const registerUser = async(username, password) => {
+export const registerUser = async(username: string, password: string) => {
     const { error } = await supabase.from('user').insert({
         username: username,
         password: password,
@@ -120,20 +100,19 @@ export const registerUser = async(username, password) => {
     return error ? false : true;
 }
 
-// @ts-ignore
-export const getTracksUploadedById = async(id) => {
+export const getTracksUploadedById = async(id: Number) => {
     const { data } = await supabase.from("track").select()
     .eq('uploaded_by_id', id);
 
     return data;
 }
 
-// @ts-ignore
-export const getTrackById = async(id) => {
+export const getTrackById = async(id: Number) => {
     const { data } = await supabase.from("track").select()
     .eq('id', id);
 
-    // @ts-ignore
+    if (!data) return null;
+
     const track = data[0];
     
     track.imgUrl = await generateImgUrl(track.path_to_img);
@@ -145,10 +124,10 @@ export const getTrackById = async(id) => {
     }
 }
 
-// @ts-ignore
-export const removeTrack = async(id) => {
-    
+export const removeTrack = async(id: Number) => {
     const data = await getTrackById(id);
+
+    if (!data) return;
 
     await supabase
     .from('track')

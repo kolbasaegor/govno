@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     export let data;
 </script>
 
@@ -10,7 +10,7 @@
             Track Id: {t.meta.id} <br>
             Track name: <a href="/music/{t.meta.id}">{t.meta.name}</a> <br>
             Author: {t.meta.author} <br>
-            Uploaded by: {t.userInfo.username} <br>
+            Uploaded by: {t.userInfo?.username} <br>
             Uploaded at: {t.meta.uploaded_at} <br>
             Cover: <img src={t.imgUrl} alt=""> <br>
             Listen -> <audio controls src={t.audioUrl}></audio>

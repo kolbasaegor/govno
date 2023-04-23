@@ -10,6 +10,10 @@ export const actions = {
         const track_cover = _data.get('track_cover');
         const audio = _data.get('audio');
 
+        if (!track_cover || !audio) return {
+            success: false
+        }
+
         const r = Math.random().toString(36).slice(2, 7);
         const storage_audio_path = r + '.mp3';
         const storage_img_path = 'track_pic/' + r + '.jpg';

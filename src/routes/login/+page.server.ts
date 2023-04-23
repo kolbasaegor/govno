@@ -5,8 +5,8 @@ import { fail } from '@sveltejs/kit';
 export const actions = {
     default: async ({ request, cookies }) => {
         const _data = await request.formData();
-        const login = _data.get('login') ?? "";
-        const password = _data.get('password');
+        const login = _data.get('login')?.toString() ?? "";
+        const password = _data.get('password')?.toString() ?? "";
         
         if (!await userExistInDb(login, password)) {
             return fail(400, { login, incorrect: true });
@@ -14,7 +14,10 @@ export const actions = {
         
         const user = await getUserByUsername(login);
 
-        // @ts-ignore
+        if (!user) return {
+            succcess: false
+        }
+
         cookies.set('session_id', user.id, {
             path: '/',
             httpOnly: true,

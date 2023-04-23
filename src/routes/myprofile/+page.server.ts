@@ -4,8 +4,8 @@ import {getTracksUploadedById,
 } from "$lib/api/db";
 import { redirect } from '@sveltejs/kit';
 
-export async function load({cookies}) {
-    const userId = cookies.get('session_id');
+export async function load({cookies: cookies}) {
+    const userId = Number(cookies.get('session_id'));
     if (!userId) throw redirect(307, '/login');
 
   let tracks = await getTracksUploadedById(userId);
