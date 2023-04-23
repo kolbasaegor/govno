@@ -1,5 +1,4 @@
 import {addTrackToDb, uploadImage, uploadAudio} from '$lib/api/db';
-export const prerender = false;
 
 /** @type {import('./$types').Actions} */
 export const actions = {
