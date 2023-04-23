@@ -1,5 +1,4 @@
 import {getAllTracks} from "$lib/api/db";
-export const prerender = true;
 
 export async function load({cookies}) {
   const tracks = await getAllTracks();

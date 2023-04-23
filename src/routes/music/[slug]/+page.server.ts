@@ -1,5 +1,4 @@
 import { getTrackById } from '$lib/api/db';
-export const prerender = false;
 
 export async function load({ params, cookies }) {
   const data = await getTrackById(Number(params.slug));

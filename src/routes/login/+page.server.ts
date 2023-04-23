@@ -1,6 +1,5 @@
 import { userExistInDb, getUserByUsername } from "$lib/api/db";
 import { fail } from '@sveltejs/kit';
-export const prerender = false;
 
 /** @type {import('./$types').Actions} */
 export const actions = {

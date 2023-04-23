@@ -1,7 +1,6 @@
 import { userAlreadyRegistered, registerUser } from "$lib/api/db";
 import { redirect } from '@sveltejs/kit';
 import { fail } from '@sveltejs/kit';
-export const prerender = false;
 
 /** @type {import('./$types').Actions} */
 export const actions = {
