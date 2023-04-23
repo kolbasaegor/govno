@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>Muzik stuff</title>
+</svelte:head>
+
 <script lang="ts">
     export let data;
 </script>

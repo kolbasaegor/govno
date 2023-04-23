@@ -5,6 +5,10 @@
   let u = data.response?.user;
 </script>
 
+<svelte:head>
+    <title>{t?.name}</title>
+</svelte:head>
+
 <div>
   <p>
     Track Id: {t?.id} <br>

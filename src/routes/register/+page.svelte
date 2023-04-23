@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>Register</title>
+</svelte:head>
+
 <script lang="ts">
 	import type { ActionData } from "./$types";
     /** @type {import('./$types').ActionData} */

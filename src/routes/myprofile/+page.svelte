@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>My profile</title>
+</svelte:head>
+
 <script lang="ts">
     export let data;
     import remove_icon from '$lib/components/remove_icon.svg';
