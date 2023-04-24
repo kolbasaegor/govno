@@ -3,7 +3,8 @@
     import logo from '$lib/components/logo.svg';
 </script>
 
-<header>
+<div>
+  <header>
     <a href="/"><img src={logo} alt=""></a>
   <nav>
     <ul>
@@ -16,6 +17,8 @@
 </header>
 
 <slot></slot>
+
+</div>
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400&display=swap');
