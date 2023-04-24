@@ -1,6 +1,5 @@
 <script lang="ts">
   export let data;
-
   let t = data.response?.track;
   let u = data.response?.user;
 </script>
@@ -9,21 +8,62 @@
     <title>{t?.name}</title>
 </svelte:head>
 
-<div>
-  <p>
-    Track Id: {t?.id} <br>
-    Track name: {t?.name} <br>
-    Author: {t?.author} <br>
-    Uploaded by: {u?.username} <br>
-    Uploaded at: {t?.uploaded_at} <br>
-    Cover: <img src={t?.imgUrl} alt=""> <br>
-    Listen -> <audio controls src={t?.audioUrl}></audio>
-  </p>
+<div class="music-section">
+      <div class="track-entry">
+          <div class="track">
+                <img class="track-cover" src={t?.imgUrl} alt="">
+                <div class="info">
+                    <div class="track-name">{t?.name}</div>
+                    <div  class="track-author">By {t?.author}</div>
+                    <audio class="audio" controls src={t?.audioUrl}></audio>
+                    <div>Uploaded by {u?.username}</div>
+                </div>
+          </div>
+      </div>
 </div>
 
 <style>
-  img {
-    height: 50px;
-    width: 50px;
-  }
+.music-section {
+        margin: 0 auto;
+        width: 1000px;
+        font-size: 14px;
+    }
+    
+
+    .track-entry {
+        padding: 15px;
+        margin: 20px;
+        background-color: #fff;
+        border:  1px solid #dce1e6;
+        border-radius: 15px;
+    }
+
+    .track {
+        display: flex;
+        padding: 10px;
+        flex-wrap: wrap;
+    }
+
+    .track-cover {
+        margin-right: 10px;
+        width: 300px;
+        height: 300px;
+        border-radius: 10px;
+    }
+
+    .track-name {
+        font-size: 32px;
+    }
+
+    .track-author {
+        color: #818c99;
+        font-size: 18px;
+    }
+
+    .info {
+      margin-left: 15px;
+    }
+    .audio {
+        width: 500px;
+    }
 </style>

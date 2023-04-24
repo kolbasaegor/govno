@@ -9,8 +9,8 @@
 </script>
 
 <div>
-    <h1>Register</h1>
     <form method="POST">
+        <h1>Register</h1>
         {#if form?.incorrect}<p>You're already registered!
             please <a href="/login">login</a>
         </p>
@@ -27,3 +27,19 @@
         <button type="submit">Register</button>
     </form>
 </div>
+
+<style>
+    a {
+        color: #600a7a;
+    }
+
+    form {
+        width: 40%;
+        margin: 150px auto;
+        padding: 20px 20px;
+        background-color: #fff;
+        border:  1px solid #dce1e6;
+        border-radius: 15px;
+        text-align: center;
+    }
+</style>

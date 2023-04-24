@@ -9,11 +9,11 @@
 </script>
 
 <div>
-    <p>Here you can upload music</p>
-    {#if form?.success}
-        Track has been successufully uploaded!
-    {/if}
     <form method="POST" enctype="multipart/form-data">
+        <h1>Upload &#119070;</h1>
+        {#if form?.success}
+            <div class="suc">Track has been successufully uploaded!</div>
+        {/if}
         <p><label>
             Name of the song:
             <input type="text" name="track_name" required>
@@ -23,7 +23,7 @@
             <input type="text" name="author" required>
         </label></p>
         <p><label>
-            Track cover (optional):
+            Track cover:
             <input type="file" name="track_cover" accept=".jpg" required>
         </label></p>
         <p><label>
@@ -33,3 +33,19 @@
         <button type="submit">Upload</button>
     </form>
 </div>
+
+<style>
+    .suc {
+        color: #15a350;
+    }
+
+    form {
+        width: 40%;
+        margin: 150px auto;
+        padding: 20px 20px;
+        background-color: #fff;
+        border:  1px solid #dce1e6;
+        border-radius: 15px;
+        text-align: center;
+    }
+</style>
