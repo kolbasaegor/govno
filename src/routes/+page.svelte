@@ -1,5 +1,5 @@
 <svelte:head>
-    <title>govno.fm</title>
+    <title>+музычка</title>
 </svelte:head>
 
 <script lang="ts">
