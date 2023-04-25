@@ -51,7 +51,7 @@
             {/each}
         </div>
     {:else}
-        <p>Tracks uploaded by you will apear here...</p>
+        <p>Tracks uploaded by you will appear here...</p>
     {/if}
 </div>
 

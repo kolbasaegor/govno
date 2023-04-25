@@ -17,7 +17,7 @@
         {/if}
 
         <p><label>
-            Login(yout username):
+            Login(your username):
             <input type="text" name="login" required>
         </label></p>
         <p><label>
